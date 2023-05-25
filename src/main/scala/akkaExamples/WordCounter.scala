@@ -10,8 +10,10 @@ object WordCounter extends App {
   // step 2: creating actor
   private class WordCounter extends Actor {
 
+    // internal data
     private var wordCount = 0
 
+    // behavior
     def receive: PartialFunction[Any, Unit] = {
       case message: String =>
         println(s"I have received message: $message")
