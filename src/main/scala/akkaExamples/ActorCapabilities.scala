@@ -49,4 +49,5 @@ object ActorCapabilities extends App {
   private case class ForwardMessage(message: String, ref: ActorRef)
 
   manish ! ForwardMessage("hello", jeet)
+
 }
