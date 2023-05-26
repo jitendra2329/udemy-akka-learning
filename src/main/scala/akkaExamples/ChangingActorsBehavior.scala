@@ -4,7 +4,7 @@ import akka.actor.{Actor, ActorRef, ActorSystem, Props}
 
 object ChangingActorsBehavior extends App {
 
-   private object Kid {
+  private object Kid {
     case object KidAccept
 
     case object KidReject
@@ -19,7 +19,7 @@ object ChangingActorsBehavior extends App {
     import Kid._
     import Mom._
 
-     private var state: String = HAPPY
+    private var state: String = HAPPY
 
     override def receive: Receive = {
       case Food(VEGETABLE) => state = SAD

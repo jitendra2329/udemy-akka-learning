@@ -25,7 +25,7 @@ object ChangingBehaviorStateLess extends App {
         ref ! Food(CHOCOLATE)
         ref ! Ask("do you want to play?")
       case KidReject => println("It's ok my kid is sad but healthy.")
-      case KidAccept => println("Wow!!! , Let's play!")
+      case KidAccept => println("Wow!!!, Let's play!")
     }
   }
 
@@ -43,13 +43,13 @@ object ChangingBehaviorStateLess extends App {
     override def receive: Receive = happyReceive
 
     private def happyReceive: Receive = {
-      case Food(VEGETABLE) => context.become(sadReceive)
+      case Food(VEGETABLE) => context.become(sadReceive, discardOld = true)
       case Food(CHOCOLATE) =>
       case Ask(_) => sender() ! KidAccept
     }
 
     private def sadReceive: Receive = {
-      case Food(VEGETABLE) => context.become(happyReceive)
+      case Food(VEGETABLE) => context.become(happyReceive, discardOld = true)
       case Food(CHOCOLATE) =>
       case Ask(_) => sender() ! KidReject
     }
@@ -60,7 +60,7 @@ object ChangingBehaviorStateLess extends App {
   val mom = system.actorOf(Props[Mom], "mom")
   val kid = system.actorOf(Props[Kid], "kid")
 
-//  import Mom._
+  //  import Mom._
   mom ! Mom.MomStart(kid)
 
 }
